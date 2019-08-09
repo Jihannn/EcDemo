@@ -3,6 +3,7 @@ package com.jihan.myecdemo;
 import android.app.Application;
 
 import com.jihan.mini_core.app.Mini;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
  * Created by Jihan on 2019/8/8
@@ -12,6 +13,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Mini.init(this)
+                .withIcon(new FontAwesomeModule())
                 .finish();
     }
 }

@@ -2,7 +2,7 @@ package com.jihan.mini_core.app;
 
 import android.content.Context;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
 
 /**
  * Created by Jihan on 2019/8/8
@@ -14,7 +14,7 @@ public final class Mini {
         return Configuration.getInstance();
     }
 
-    private static WeakHashMap<String,Object> getConfigurations(){
+    private static HashMap<String,Object> getConfigurations(){
         return Configuration.getInstance().getMiniConfigs();
     }
 }
