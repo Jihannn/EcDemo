@@ -1,4 +1,4 @@
-package com.jihan.mini_core.app.activities;
+package com.jihan.mini_core.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v7.widget.ContentFrameLayout;
 
 
 import com.jihan.mini_core.R;
-import com.jihan.mini_core.app.delegates.MiniDelegate;
+import com.jihan.mini_core.delegates.MiniDelegate;
 
 import me.yokeyword.fragmentation.SupportActivity;
 

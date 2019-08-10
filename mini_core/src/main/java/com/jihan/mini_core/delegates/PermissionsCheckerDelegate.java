@@ -1,4 +1,4 @@
-package com.jihan.mini_core.app.delegates;
+package com.jihan.mini_core.delegates;
 
 
 /**

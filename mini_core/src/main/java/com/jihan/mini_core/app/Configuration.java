@@ -22,11 +22,11 @@ public class Configuration {
         private static final Configuration INSTANCE = new Configuration();
     }
 
-    public static Configuration getInstance() {
+    static Configuration getInstance() {
         return Holder.INSTANCE;
     }
 
-    public HashMap<String, Object> getMiniConfigs() {
+    HashMap<String, Object> getMiniConfigs() {
         return MINI_CONFIGS;
     }
 
@@ -49,10 +49,9 @@ public class Configuration {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T getConfiguration(Enum<ConfigType> key) {
         checkFinish();
-        return (T) MINI_CONFIGS.get(key);
+        return (T) MINI_CONFIGS.get(key.name());
     }
 
     public void finish() {

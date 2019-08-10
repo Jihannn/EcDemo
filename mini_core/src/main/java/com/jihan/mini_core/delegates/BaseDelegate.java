@@ -1,4 +1,4 @@
-package com.jihan.mini_core.app.delegates;
+package com.jihan.mini_core.delegates;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +17,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  */
 public abstract class BaseDelegate extends SwipeBackFragment {
 
-    private Unbinder mUnbinder = null;
+    private Unbinder mUnBinder = null;
 
     public abstract Object setLayout();
 
@@ -36,7 +36,7 @@ public abstract class BaseDelegate extends SwipeBackFragment {
         }
 
         if (rootView != null) {
-            mUnbinder = ButterKnife.bind(this, rootView);
+            mUnBinder = ButterKnife.bind(this, rootView);
             onBindView(savedInstanceState, rootView);
         }
 
@@ -46,8 +46,8 @@ public abstract class BaseDelegate extends SwipeBackFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
+        if (mUnBinder != null) {
+            mUnBinder.unbind();
         }
     }
 }

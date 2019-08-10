@@ -13,6 +13,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Mini.init(this)
+                .withApiHost("http://127.0.0.1/")
                 .withIcon(new FontAwesomeModule())
                 .finish();
     }
