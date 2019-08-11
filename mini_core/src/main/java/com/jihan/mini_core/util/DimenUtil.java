@@ -12,13 +12,13 @@ import com.jihan.mini_core.app.Mini;
 public class DimenUtil {
 
     public static int getScreenWidth() {
-        final Resources resources = Mini.getApplication().getResources();
+        final Resources resources = Mini.getApplicationContext().getResources();
         final DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.widthPixels;
     }
 
     public static int getScreenHeight() {
-        final Resources resources = Mini.getApplication().getResources();
+        final Resources resources = Mini.getApplicationContext().getResources();
         final DisplayMetrics dm = resources.getDisplayMetrics();
         return dm.heightPixels;
     }

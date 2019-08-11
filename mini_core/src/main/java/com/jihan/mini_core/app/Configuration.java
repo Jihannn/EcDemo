@@ -5,6 +5,9 @@ import com.joanzapata.iconify.Iconify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import okhttp3.Interceptor;
 
 /**
  * Created by Jihan on 2019/8/8
@@ -13,6 +16,7 @@ public class Configuration {
 
     private static final HashMap<String, Object> MINI_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configuration() {
         MINI_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
@@ -22,11 +26,11 @@ public class Configuration {
         private static final Configuration INSTANCE = new Configuration();
     }
 
-    static Configuration getInstance() {
+    public static Configuration getInstance() {
         return Holder.INSTANCE;
     }
 
-    HashMap<String, Object> getMiniConfigs() {
+    public HashMap<String, Object> getMiniConfigs() {
         return MINI_CONFIGS;
     }
 
@@ -49,7 +53,19 @@ public class Configuration {
         return this;
     }
 
-    public <T> T getConfiguration(Enum<ConfigType> key) {
+    public Configuration withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        return this;
+    }
+
+    public Configuration withInterceptor(List<Interceptor> interceptor){
+        INTERCEPTORS.addAll(interceptor);
+        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        return this;
+    }
+
+    public <T> T getMiniConfigs(Enum<ConfigType> key) {
         checkFinish();
         return (T) MINI_CONFIGS.get(key.name());
     }

@@ -23,8 +23,8 @@ public final class Mini {
         return Configuration.getInstance();
     }
 
-    public static Context getApplication(){
-        return getConfiguration().getConfiguration(ConfigType.APPLICATION_CONTEXT);
+    public static Context getApplicationContext(){
+        return getConfiguration().getMiniConfigs(ConfigType.APPLICATION_CONTEXT);
     }
 
     public static void showToast(String content){

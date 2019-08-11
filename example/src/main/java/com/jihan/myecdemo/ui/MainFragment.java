@@ -2,6 +2,7 @@ package com.jihan.myecdemo.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.jihan.mini_core.app.Mini;
@@ -15,6 +16,8 @@ import com.jihan.myecdemo.R;
  * Created by Jihan on 2019/8/9
  */
 public class MainFragment extends MiniDelegate {
+    private static final String TAG = "MainFragment";
+
     @Override
     public Object setLayout() {
         return R.layout.fragment_main;
@@ -25,19 +28,20 @@ public class MainFragment extends MiniDelegate {
         testHttp();
     }
 
-    private void testHttp(){
+    private void testHttp() {
         RestClient.builder()
-                .url("https://raw.githubusercontent.com/Snailclimb/JavaGuide/master/.gitattributes")
+                .url("http://127.0.0.1/test")
                 .success(new ISuccess() {
                     @Override
                     public void success(String response) {
+                        Log.d(TAG, "success: " + response);
                         Mini.showToast(response);
                     }
                 })
                 .failure(new IFailure() {
                     @Override
-                    public void failure(String msg) {
-                        Mini.showToast(msg);
+                    public void failure(String content) {
+                        Mini.showToast(content);
                     }
                 })
                 .loader(getContext())

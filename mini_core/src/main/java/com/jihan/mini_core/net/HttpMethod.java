@@ -6,6 +6,10 @@ package com.jihan.mini_core.net;
 public enum HttpMethod {
     GET,
     POST,
+    POST_RAW,
     PUT,
-    DELETE
+    PUT_RAW,
+    DELETE,
+    UPLOAD,
+    DOWNLOAD
 }
