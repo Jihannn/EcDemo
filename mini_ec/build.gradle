@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 19
@@ -10,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.sign_in.runner.AndroidJUnitRunner"
 
     }
 
@@ -30,4 +31,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(path: ':mini_core')
+    //ButterKnife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
 }

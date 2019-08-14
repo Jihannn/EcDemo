@@ -29,24 +29,6 @@ public class MainFragment extends MiniDelegate {
     }
 
     private void testHttp() {
-        RestClient.builder()
-                .url("http://127.0.0.1/test")
-                .success(new ISuccess() {
-                    @Override
-                    public void success(String response) {
-                        Log.d(TAG, "success: " + response);
-                        Mini.showToast(response);
-                    }
-                })
-                .failure(new IFailure() {
-                    @Override
-                    public void failure(String content) {
-                        Mini.showToast(content);
-                    }
-                })
-                .loader(getContext())
-                .build()
-                .get();
 
     }
 }

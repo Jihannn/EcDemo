@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.net.interceptor.DebugInterceptor;
+import com.jihan.moni_ec.database.DatabaseManager;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**
@@ -14,9 +15,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Mini.init(this)
-                .withApiHost("http://127.0.0.1/")
+                .withApiHost("http://192.168.0.103:8080/")
                 .withIcon(new FontAwesomeModule())
-                .withInterceptor(new DebugInterceptor("test",R.raw.test))
                 .finish();
+
+        DatabaseManager.getInstance().init(this);
     }
 }

@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.jihan.mini_core.activities.ProxyActivity;
+import com.jihan.mini_core.ui.launcher.LauncherFlags;
+import com.jihan.mini_core.util.MiniPreference;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
@@ -50,4 +54,9 @@ public abstract class BaseDelegate extends SwipeBackFragment {
             mUnBinder.unbind();
         }
     }
+
+    public final ProxyActivity getProxyActivity(){
+        return (ProxyActivity) _mActivity;
+    }
+
 }
