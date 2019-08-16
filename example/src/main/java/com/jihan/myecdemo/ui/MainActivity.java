@@ -10,6 +10,7 @@ import com.jihan.mini_core.delegates.MiniDelegate;
 import com.jihan.mini_core.ui.launcher.ILauncherFinish;
 import com.jihan.mini_core.ui.launcher.LauncherFlags;
 import com.jihan.moni_ec.launcher.SplashFragment;
+import com.jihan.moni_ec.main.EcBottomFragment;
 import com.jihan.moni_ec.sign.ISignListener;
 import com.jihan.moni_ec.sign.SignInFragment;
 
@@ -32,18 +33,20 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
     @Override
     public void onSignInSuccess() {
         Mini.showToast("登陆成功！");
+        startWithPop(new EcBottomFragment());
     }
 
     @Override
     public void onSignUpSuccess() {
         Mini.showToast("注冊成功！");
+        startWithPop(new SignInFragment());
     }
 
     @Override
     public void launcherFinish(LauncherFlags flags) {
         switch (flags) {
             case FINISH_SIGN:
-                startWithPop(new MainFragment());
+                startWithPop(new EcBottomFragment());
                 break;
             case FINISH_NOT_SIGN:
                 startWithPop(new SignInFragment());

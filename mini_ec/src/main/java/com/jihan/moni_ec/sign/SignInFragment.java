@@ -50,7 +50,7 @@ public class SignInFragment extends MiniDelegate {
                     .failure(new IFailure() {
                         @Override
                         public void failure(String msg) {
-
+                            Mini.showToast(msg);
                         }
                     })
                     .build()

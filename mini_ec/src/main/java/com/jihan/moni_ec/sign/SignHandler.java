@@ -26,7 +26,6 @@ public class SignHandler {
         DatabaseManager.getInstance().getDao().insertOrReplace(userProfile);
 
         MiniLoader.stopLoading();
-        AccountManager.setSignInState(true);
         signListener.onSignUpSuccess();
     }
 
@@ -44,6 +43,7 @@ public class SignHandler {
         //TODO 信息查询
 
         MiniLoader.stopLoading();
+        AccountManager.setSignInState(true);
         signListener.onSignInSuccess();
     }
 }
