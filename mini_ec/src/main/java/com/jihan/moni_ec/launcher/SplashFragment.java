@@ -75,7 +75,7 @@ public class SplashFragment extends MiniDelegate implements ITimer {
 
     public final void checkIsFirstLaunch() {
         if (!MiniPreference.getAppFlag(LauncherFlags.LAUNCH_APP_AGAIN.name())) {
-            start(new ScrollFragment());
+            startWithPop(new ScrollFragment());
         } else {
             AccountManager.checkSignIn(new IUserChecker() {
                 @Override

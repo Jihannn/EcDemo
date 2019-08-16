@@ -1,5 +1,7 @@
 package com.jihan.mini_core.app;
 
+import android.app.Activity;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -12,21 +14,21 @@ import okhttp3.Interceptor;
 /**
  * Created by Jihan on 2019/8/8
  */
-public class Configuration {
+public class Configurator {
 
     private static final HashMap<String, Object> MINI_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
-    private Configuration() {
+    private Configurator() {
         MINI_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
     }
 
     private static class Holder {
-        private static final Configuration INSTANCE = new Configuration();
+        private static final Configurator INSTANCE = new Configurator();
     }
 
-    public static Configuration getInstance() {
+    public static Configurator getInstance() {
         return Holder.INSTANCE;
     }
 
@@ -34,8 +36,23 @@ public class Configuration {
         return MINI_CONFIGS;
     }
 
-    public Configuration withApiHost(String host) {
+    public Configurator withApiHost(String host) {
         MINI_CONFIGS.put(ConfigType.API_HOST.name(), host);
+        return this;
+    }
+
+    public final Configurator withWeChatAppId(String appId) {
+        MINI_CONFIGS.put(ConfigType.WE_CHAT_APP_ID.name(), appId);
+        return this;
+    }
+
+    public final Configurator withWeChatAppSecret(String appSecret) {
+        MINI_CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET.name(), appSecret);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity) {
+        MINI_CONFIGS.put(ConfigType.ACTIVITY.name(), activity);
         return this;
     }
 
@@ -48,18 +65,18 @@ public class Configuration {
         }
     }
 
-    public Configuration withIcon(IconFontDescriptor descriptor) {
+    public Configurator withIcon(IconFontDescriptor descriptor) {
         ICONS.add(descriptor);
         return this;
     }
 
-    public Configuration withInterceptor(Interceptor interceptor){
+    public Configurator withInterceptor(Interceptor interceptor){
         INTERCEPTORS.add(interceptor);
         MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
         return this;
     }
 
-    public Configuration withInterceptor(List<Interceptor> interceptor){
+    public Configurator withInterceptor(List<Interceptor> interceptor){
         INTERCEPTORS.addAll(interceptor);
         MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
         return this;

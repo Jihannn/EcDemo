@@ -10,17 +10,17 @@ import com.jihan.mini_core.util.T;
  */
 public final class Mini {
 
-    public static Configuration init(Context context) {
+    public static Configurator init(Context context) {
         getConfiguration()
                 .getMiniConfigs()
                 .put(ConfigType.APPLICATION_CONTEXT.name()
                         , context.getApplicationContext());
         T.init(context.getApplicationContext());
-        return Configuration.getInstance();
+        return Configurator.getInstance();
     }
 
-    public static Configuration getConfiguration() {
-        return Configuration.getInstance();
+    public static Configurator getConfiguration() {
+        return Configurator.getInstance();
     }
 
     public static Context getApplicationContext(){
