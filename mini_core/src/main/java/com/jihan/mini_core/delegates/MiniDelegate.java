@@ -5,4 +5,7 @@ package com.jihan.mini_core.delegates;
  */
 public abstract class MiniDelegate extends PermissionsCheckerDelegate {
 
+    public <T extends MiniDelegate> T getParentDelegate() {
+        return (T) getParentFragment();
+    }
 }

@@ -1,6 +1,7 @@
 package com.jihan.mini_core.app;
 
 import android.app.Activity;
+import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -19,9 +20,11 @@ public class Configurator {
     private static final HashMap<String, Object> MINI_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
+    private static final Handler HANDLER = new Handler();
 
     private Configurator() {
         MINI_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
+        MINI_CONFIGS.put(ConfigType.HANDLER.name(),HANDLER);
     }
 
     private static class Holder {
@@ -57,7 +60,7 @@ public class Configurator {
     }
 
     private void initIcon() {
-        if (ICONS.size() > 0){
+        if (ICONS.size() > 0) {
             Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
             for (int i = 1; i < ICONS.size(); i++) {
                 initializer.with(ICONS.get(i));
@@ -70,19 +73,19 @@ public class Configurator {
         return this;
     }
 
-    public Configurator withInterceptor(Interceptor interceptor){
+    public Configurator withInterceptor(Interceptor interceptor) {
         INTERCEPTORS.add(interceptor);
-        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
         return this;
     }
 
-    public Configurator withInterceptor(List<Interceptor> interceptor){
+    public Configurator withInterceptor(List<Interceptor> interceptor) {
         INTERCEPTORS.addAll(interceptor);
-        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(),INTERCEPTORS);
+        MINI_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
         return this;
     }
 
-    public <T> T getMiniConfigs(Enum<ConfigType> key) {
+    protected <T> T getMiniConfigs(Enum<ConfigType> key) {
         checkFinish();
         return (T) MINI_CONFIGS.get(key.name());
     }

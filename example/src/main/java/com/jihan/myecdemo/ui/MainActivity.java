@@ -14,6 +14,8 @@ import com.jihan.moni_ec.main.EcBottomFragment;
 import com.jihan.moni_ec.sign.ISignListener;
 import com.jihan.moni_ec.sign.SignInFragment;
 
+import qiu.niorgai.StatusBarCompat;
+
 public class MainActivity extends ProxyActivity implements ISignListener, ILauncherFinish {
 
     @Override
@@ -23,6 +25,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         if (actionBar != null) {
             actionBar.hide();
         }
+        StatusBarCompat.translucentStatusBar(this,true);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class RestCreator {
     public static final class OkHttpClientHolder {
         private static final int TIME_OUT = 10;
         private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
-        private static List<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Mini.getConfiguration().getMiniConfigs(ConfigType.INTERCEPTOR);
+        private static List<Interceptor> INTERCEPTORS = (ArrayList<Interceptor>) Mini.getMiniConfigs(ConfigType.INTERCEPTOR);
 
         private static OkHttpClient.Builder addInterceptor(){
             if(INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
@@ -46,7 +46,7 @@ public class RestCreator {
     }
 
     public static final class RetrofitHolder {
-        private static String BASE_URL = Mini.getConfiguration().getMiniConfigs(ConfigType.API_HOST);
+        private static String BASE_URL = Mini.getMiniConfigs(ConfigType.API_HOST);
         public static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpClientHolder.OK_HTTP_CLIENT)

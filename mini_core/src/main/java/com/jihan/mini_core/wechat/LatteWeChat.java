@@ -15,8 +15,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  */
 
 public class LatteWeChat {
-    public static final String APP_ID = Mini.getConfiguration().getMiniConfigs(ConfigType.WE_CHAT_APP_ID);
-    public static final String APP_SECRET = Mini.getConfiguration().getMiniConfigs(ConfigType.WE_CHAT_APP_SECRET);
+    public static final String APP_ID = Mini.getMiniConfigs(ConfigType.WE_CHAT_APP_ID);
+    public static final String APP_SECRET = Mini.getMiniConfigs(ConfigType.WE_CHAT_APP_SECRET);
     private final IWXAPI WXAPI;
     private IWeChatSignInCallback mSignInCallback = null;
 
@@ -29,7 +29,7 @@ public class LatteWeChat {
     }
 
     private LatteWeChat() {
-        final Activity activity = Mini.getConfiguration().getMiniConfigs(ConfigType.ACTIVITY);
+        final Activity activity = Mini.getMiniConfigs(ConfigType.ACTIVITY);
         WXAPI = WXAPIFactory.createWXAPI(activity, APP_ID, true);
         WXAPI.registerApp(APP_ID);
     }
