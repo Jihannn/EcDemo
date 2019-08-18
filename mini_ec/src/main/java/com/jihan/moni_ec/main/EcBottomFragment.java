@@ -5,7 +5,7 @@ import com.jihan.mini_core.delegates.bottom.BottomItemDelegate;
 import com.jihan.mini_core.delegates.bottom.BottomTabBean;
 import com.jihan.mini_core.delegates.bottom.ItemBuilder;
 import com.jihan.moni_ec.main.index.IndexFragment;
-import com.jihan.moni_ec.main.index.SortFragment;
+import com.jihan.moni_ec.main.sort.SortFragment;
 
 import java.util.LinkedHashMap;
 

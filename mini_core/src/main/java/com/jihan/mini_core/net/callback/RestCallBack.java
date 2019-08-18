@@ -53,7 +53,7 @@ public class RestCallBack implements Callback<String> {
                 public void run() {
                     MiniLoader.stopLoading();
                 }
-            }, 2000);
+            }, 1000);
         }
     }
 
@@ -73,7 +73,7 @@ public class RestCallBack implements Callback<String> {
                 public void run() {
                     MiniLoader.stopLoading();
                 }
-            }, 2000);
+            }, 1000);
         }
     }
 }

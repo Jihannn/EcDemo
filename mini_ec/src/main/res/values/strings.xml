@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MiniEc</string>
     <string name="search">搜索</string>
+    <string name="sort">分类</string>
 </resources>
