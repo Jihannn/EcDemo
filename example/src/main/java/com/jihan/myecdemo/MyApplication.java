@@ -3,7 +3,8 @@ package com.jihan.myecdemo;
 import android.app.Application;
 
 import com.jihan.mini_core.app.Mini;
-import com.jihan.mini_core.net.interceptor.DebugInterceptor;
+import com.jihan.mini_core.net.interceptor.AddCookieInterceptor;
+import com.jihan.myecdemo.event.TestEvent;
 import com.jihan.moni_ec.database.DatabaseManager;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -17,6 +18,10 @@ public class MyApplication extends Application {
         Mini.init(this)
                 .withApiHost("http://192.168.0.103:8080/")
                 .withIcon(new FontAwesomeModule())
+                .withJavaScriptInterface("mini")
+                .withWebEvent("test",new TestEvent())
+//                .withWebHost("https://www.baidu.com/")
+//                .withInterceptor(new AddCookieInterceptor())
                 .finish();
 
         DatabaseManager.getInstance().init(this);

@@ -2,6 +2,7 @@ package com.jihan.mini_core.net;
 
 import com.jihan.mini_core.app.ConfigType;
 import com.jihan.mini_core.app.Mini;
+import com.jihan.mini_core.net.rx.RxRestService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -51,11 +53,17 @@ public class RestCreator {
                 .baseUrl(BASE_URL)
                 .client(OkHttpClientHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
     public static final class RestServiceHolder {
         public static final RestService REST_SERVICE = RetrofitHolder.RETROFIT_CLIENT
                 .create(RestService.class);
+    }
+
+    public static final class RxRestServiceHolder {
+        public static final RxRestService RX_REST_SERVICE = RetrofitHolder.RETROFIT_CLIENT
+                .create(RxRestService.class);
     }
 }

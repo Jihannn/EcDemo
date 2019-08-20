@@ -3,6 +3,8 @@ package com.jihan.mini_core.app;
 import android.app.Activity;
 import android.os.Handler;
 
+import com.jihan.mini_core.delegates.web.event.Event;
+import com.jihan.mini_core.delegates.web.event.EventManager;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -56,6 +58,21 @@ public class Configurator {
 
     public final Configurator withActivity(Activity activity) {
         MINI_CONFIGS.put(ConfigType.ACTIVITY.name(), activity);
+        return this;
+    }
+
+    public final Configurator withJavaScriptInterface(String name){
+        MINI_CONFIGS.put(ConfigType.JAVASCRIPT_INTERFACE.name(),name);
+        return this;
+    }
+
+    public final Configurator withWebEvent(String name, Event event){
+        EventManager.getInstance().addEvent(name,event);
+        return this;
+    }
+
+    public final Configurator withWebHost(String url){
+        MINI_CONFIGS.put(ConfigType.WEB_HOST.name(),url);
         return this;
     }
 

@@ -11,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.delegates.bottom.BottomItemDelegate;
+import com.jihan.mini_core.net.RestCreator;
+import com.jihan.mini_core.net.rx.RxRestClient;
 import com.jihan.mini_core.ui.recycler.BaseDecoration;
 import com.jihan.mini_core.ui.refresh.PagingBean;
 import com.jihan.mini_core.ui.refresh.SwipeRefreshHandler;
@@ -20,7 +23,14 @@ import com.jihan.moni_ec.R2;
 import com.joanzapata.iconify.widget.IconTextView;
 
 
+import java.util.WeakHashMap;
+
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import qiu.niorgai.StatusBarCompat;
 
 /**
@@ -59,7 +69,7 @@ public class IndexFragment extends BottomItemDelegate {
     private void initRecycleView() {
         final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         mRecycleView.setLayoutManager(manager);
-        mRecycleView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(),R.color.index_divider),5));
+        mRecycleView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.index_divider), 5));
         mRecycleView.addOnItemTouchListener(IndexItemClickListener.create(getParentDelegate()));
     }
 
@@ -69,6 +79,70 @@ public class IndexFragment extends BottomItemDelegate {
         initRecycleView();
         initRefresh();
         mSwipeRefreshHandler.firstPage("data");
+//        testToRxClient();
+    }
+
+    //TODO test
+    private void testToRxClient() {
+        String url = "data";
+        RxRestClient.builder()
+                .url(url)
+                .build()
+                .get()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Mini.showToast(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    //TODO test
+    private void testToRx() {
+        String url = "data";
+        WeakHashMap<String, Object> params = new WeakHashMap<>();
+        Observable<String> observable = RestCreator.RxRestServiceHolder.RX_REST_SERVICE.get(url, params);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Mini.showToast(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     @Override

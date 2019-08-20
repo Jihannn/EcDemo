@@ -4,6 +4,7 @@ import com.jihan.mini_core.delegates.bottom.BaseBottomDelegate;
 import com.jihan.mini_core.delegates.bottom.BottomItemDelegate;
 import com.jihan.mini_core.delegates.bottom.BottomTabBean;
 import com.jihan.mini_core.delegates.bottom.ItemBuilder;
+import com.jihan.moni_ec.main.discover.DiscoverFragment;
 import com.jihan.moni_ec.main.index.IndexFragment;
 import com.jihan.moni_ec.main.sort.SortFragment;
 
@@ -19,7 +20,7 @@ public class EcBottomFragment extends BaseBottomDelegate {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-home}","主页"),new IndexFragment());
         items.put(new BottomTabBean("{fa-sort}","分类"),new SortFragment());
-        items.put(new BottomTabBean("{fa-compass}","发现"),new IndexFragment());
+        items.put(new BottomTabBean("{fa-compass}","发现"),new DiscoverFragment());
         items.put(new BottomTabBean("{fa-shopping-cart}","购物车"),new IndexFragment());
         items.put(new BottomTabBean("{fa-user}","我的"),new IndexFragment());
         return builder.addItem(items).build();
