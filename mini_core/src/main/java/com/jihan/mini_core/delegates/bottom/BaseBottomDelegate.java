@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -86,8 +87,8 @@ public abstract class BaseBottomDelegate extends MiniDelegate implements View.On
                 title.setTextColor(mClickColor);
             }
         }
-        final SupportFragment[] delegateArray = ITEMS_FRAGMENT.toArray(new SupportFragment[size]);
-        loadMultipleRootFragment(R.id.fl_root_fragment, mIndexTab, delegateArray);
+        final ISupportFragment[] delegateArray = ITEMS_FRAGMENT.toArray(new ISupportFragment[size]);
+        getSupportDelegate().loadMultipleRootFragment(R.id.fl_root_fragment, mIndexTab, delegateArray);
     }
 
     private void resetColor() {
@@ -112,7 +113,7 @@ public abstract class BaseBottomDelegate extends MiniDelegate implements View.On
         TextView title = (TextView) item.getChildAt(1);
         title.setTextColor(mClickColor);
 
-        showHideFragment(ITEMS_FRAGMENT.get(index), ITEMS_FRAGMENT.get(mCurrentTab));
+        getSupportDelegate().showHideFragment(ITEMS_FRAGMENT.get(index), ITEMS_FRAGMENT.get(mCurrentTab));
         mCurrentTab = index;
     }
 }

@@ -36,23 +36,23 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
     @Override
     public void onSignInSuccess() {
         Mini.showToast("登陆成功！");
-        startWithPop(new EcBottomFragment());
+        getSupportDelegate().replaceFragment(new EcBottomFragment(),false);
     }
 
     @Override
     public void onSignUpSuccess() {
         Mini.showToast("注冊成功！");
-        startWithPop(new SignInFragment());
+        getSupportDelegate().replaceFragment(new SignInFragment(),false);
     }
 
     @Override
     public void launcherFinish(LauncherFlags flags) {
         switch (flags) {
             case FINISH_SIGN:
-                startWithPop(new EcBottomFragment());
+                getSupportDelegate().replaceFragment(new EcBottomFragment(),false);
                 break;
             case FINISH_NOT_SIGN:
-                startWithPop(new SignInFragment());
+                getSupportDelegate().replaceFragment(new SignInFragment(),false);
                 break;
             default:
                 break;

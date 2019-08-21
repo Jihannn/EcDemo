@@ -87,9 +87,10 @@ public class SortMenuRecyclerAdapter extends MultipleRecyclerAdapter {
     }
 
     private void switchContent(SortContentFragment fragment){
-        MiniDelegate contentFragment = FRAGMENT.findChildFragment(SortContentFragment.class);
+        MiniDelegate contentFragment =
+                SupportHelper.findFragment(FRAGMENT.getChildFragmentManager(),SortContentFragment.class);
         if(contentFragment != null){
-            contentFragment.replaceFragment(fragment,false);
+            contentFragment.getSupportDelegate().replaceFragment(fragment,false);
         }
     }
 }

@@ -60,7 +60,7 @@ public class SignInFragment extends MiniDelegate {
 
     @OnClick(R2.id.tv_link_sign_up)
     void toSignUp(){
-        replaceFragment(new SignUpFragment(),false);
+        getSupportDelegate().replaceFragment(new SignUpFragment(),false);
     }
 
     @OnClick(R2.id.icon_sign_in_wechat)

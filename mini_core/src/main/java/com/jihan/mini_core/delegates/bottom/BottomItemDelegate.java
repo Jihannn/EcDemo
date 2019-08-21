@@ -39,4 +39,9 @@ public abstract class BottomItemDelegate extends MiniDelegate implements View.On
         }
         return false;
     }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
 }

@@ -63,7 +63,7 @@ public class SignUpFragment extends MiniDelegate {
 
     @OnClick(R2.id.tv_link_sign_in)
     void toSignIn() {
-        replaceFragment(new SignInFragment(),false);
+        getSupportDelegate().replaceFragment(new SignInFragment(),false);
     }
 
     @Override
