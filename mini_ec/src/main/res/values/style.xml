@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dialog_pay_panel" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/pay_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/pay_dialog_exit</item>
+    </style>
+
+</resources>

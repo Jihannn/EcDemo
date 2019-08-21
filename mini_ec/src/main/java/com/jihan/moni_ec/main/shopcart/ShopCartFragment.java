@@ -96,7 +96,13 @@ public class ShopCartFragment extends BottomItemDelegate implements ISuccess,Ite
             mShopCartAdapter.getData().clear();
             mShopCartAdapter.notifyDataSetChanged();
             checkItemCount();
+            mAllItemTotal.setText(String.valueOf(0));
         }
+    }
+
+    @OnClick(R2.id.tv_shop_cart_pay)
+    void OnClickPay(){
+        PayDialog.create(this).beginDialog();
     }
 
     @SuppressLint("RestrictedApi")
