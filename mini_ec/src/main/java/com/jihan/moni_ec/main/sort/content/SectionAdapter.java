@@ -43,6 +43,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         final AppCompatImageView goodsImageView = helper.getView(R.id.iv);
         Glide.with(mContext)
                 .load(goodsThumb)
+                .apply(OPTIONS)
                 .into(goodsImageView);
     }
 }
