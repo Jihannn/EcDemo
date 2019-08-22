@@ -9,7 +9,6 @@ import android.view.View;
 import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.delegates.MiniDelegate;
 import com.jihan.mini_core.net.RestClient;
-import com.jihan.mini_core.net.callback.IError;
 import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.mini_core.ui.recycler.DataConverter;
@@ -32,7 +31,7 @@ public class OrderListFragment extends MiniDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.delegate_order_list;
+        return R.layout.fragment_order_list;
     }
 
     public static OrderListFragment newIntent(String type){

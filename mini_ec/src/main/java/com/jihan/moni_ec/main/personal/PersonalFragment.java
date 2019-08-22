@@ -10,6 +10,7 @@ import com.jihan.mini_core.delegates.bottom.BottomItemDelegate;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
 import com.jihan.moni_ec.main.personal.list.OrderListFragment;
+import com.jihan.moni_ec.main.personal.profile.UserProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,13 @@ public class PersonalFragment extends BottomItemDelegate {
     RecyclerView mRecycleView = null;
 
     @OnClick(R2.id.tv_all_order)
-    void onClickAllOrder(){
+    void onClickAllOrder() {
         getParentDelegate().getSupportDelegate().start(OrderListFragment.newIntent("all"));
+    }
+
+    @OnClick(R2.id.img_user_avatar)
+    void onClickUserProfile() {
+        getParentDelegate().getSupportDelegate().start(new UserProfileFragment());
     }
 
     public static final String ORDER_TYPE = "ORDER_TYPE";
@@ -56,8 +62,18 @@ public class PersonalFragment extends BottomItemDelegate {
     }
 
     private List<ListBean> createLowList() {
-        ListBean address = new ListBean.Builder().setItemType(ItemType.NORMAL_ITEM).setId(1).setText("收货地址").build();
-        ListBean system = new ListBean.Builder().setItemType(ItemType.NORMAL_ITEM).setId(2).setText("系统设置").build();
+        ListBean address = new ListBean.Builder()
+                .setItemType(ItemType.ITEM_NORMAL)
+                .setId(1)
+                .setText("收货地址")
+                .build();
+
+        ListBean system = new ListBean.Builder()
+                .setItemType(ItemType.ITEM_NORMAL)
+                .setId(2)
+                .setText("系统设置")
+                .build();
+
         List<ListBean> list = new ArrayList<>();
         list.add(address);
         list.add(system);
