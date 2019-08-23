@@ -1,6 +1,7 @@
 package com.jihan.myecdemo;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.net.interceptor.AddCookieInterceptor;
@@ -12,6 +13,11 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
  * Created by Jihan on 2019/8/8
  */
 public class MyApplication extends Application {
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

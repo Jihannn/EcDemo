@@ -31,12 +31,12 @@ public class PersonalAdapter extends BaseMultiItemQuickAdapter<ListBean, BaseVie
     @Override
     protected void convert(@NonNull BaseViewHolder holder, ListBean item) {
         switch (holder.getItemViewType()) {
-            case ItemType.ITEM_NORMAL:{
-                holder.setText(R.id.tv_arrow_text,item.getText());
-                holder.setText(R.id.tv_arrow_value,item.getValue());
+            case ItemType.ITEM_NORMAL: {
+                holder.setText(R.id.tv_arrow_text, item.getText());
+                holder.setText(R.id.tv_arrow_value, item.getValue());
                 break;
             }
-            case ItemType.ITEM_AVATAR:{
+            case ItemType.ITEM_AVATAR: {
                 Glide.with(mContext)
                         .load(item.getImageUrl())
                         .apply(OPTIONS)
