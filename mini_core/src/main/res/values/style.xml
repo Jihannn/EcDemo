@@ -15,9 +15,4 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="dialog_pay_panel" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/pay_dialog_enter</item>
-        <item name="android:windowExitAnimation">@anim/pay_dialog_exit</item>
-    </style>
-
 </resources>
