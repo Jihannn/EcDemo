@@ -11,6 +11,7 @@ import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
 import com.jihan.moni_ec.main.personal.list.OrderListFragment;
 import com.jihan.moni_ec.main.personal.profile.UserProfileFragment;
+import com.jihan.moni_ec.main.personal.settings.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class PersonalFragment extends BottomItemDelegate {
         manager = new LinearLayoutManager(getContext());
         mRecycleView.setLayoutManager(manager);
         mRecycleView.setAdapter(mPersonalAdapter);
+        mRecycleView.addOnItemTouchListener(new PersonalItemClickListener(this));
     }
 
     private List<ListBean> createLowList() {
@@ -70,8 +72,9 @@ public class PersonalFragment extends BottomItemDelegate {
 
         ListBean system = new ListBean.Builder()
                 .setItemType(ItemType.ITEM_NORMAL)
-                .setId(2)
+                .setId(R.id.item_personal_setting)
                 .setText("系统设置")
+                .setMiniDelegate(new SettingsFragment())
                 .build();
 
         List<ListBean> list = new ArrayList<>();

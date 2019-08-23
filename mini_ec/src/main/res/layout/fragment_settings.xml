@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_shop_cart"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@android:color/holo_orange_dark"
+        android:gravity="center">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <com.jihan.mini_core.widgets.StarLayout
+        android:id="@+id/my_star"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <Button
+        android:id="@+id/test_star"
+        android:text="测试自定义View"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

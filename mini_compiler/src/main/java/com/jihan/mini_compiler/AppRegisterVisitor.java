@@ -28,7 +28,7 @@ final class AppRegisterVisitor extends SimpleAnnotationValueVisitor7<Void, Void>
 
     @Override
     public Void visitType(TypeMirror t, Void p) {
-        generateJavaCode(t);
+//        generateJavaCode(t);
         return p;
     }
 
@@ -40,13 +40,13 @@ final class AppRegisterVisitor extends SimpleAnnotationValueVisitor7<Void, Void>
                         .superclass(TypeName.get(typeMirror))
                         .build();
 
-        final JavaFile javaFile = JavaFile.builder(mPackageName + ".wxapi", targetActivity)
-                .addFileComment("微信广播接收器")
-                .build();
-        try {
-            javaFile.writeTo(FILER);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        final JavaFile javaFile = JavaFile.builder(mPackageName + ".wxapi", targetActivity)
+//                .addFileComment("微信广播接收器")
+//                .build();
+//        try {
+//            javaFile.writeTo(FILER);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
