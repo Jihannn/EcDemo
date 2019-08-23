@@ -3,6 +3,7 @@ package com.jihan.mini_core.app;
 import android.content.Context;
 import android.os.Handler;
 
+import com.blankj.utilcode.util.Utils;
 import com.jihan.mini_core.util.T;
 
 
@@ -16,7 +17,10 @@ public final class Mini {
                 .getMiniConfigs()
                 .put(ConfigType.APPLICATION_CONTEXT.name()
                         , context.getApplicationContext());
+        //Toast初始化
         T.init(context.getApplicationContext());
+        //Utils初始化
+        Utils.init(context.getApplicationContext());
         return Configurator.getInstance();
     }
 
