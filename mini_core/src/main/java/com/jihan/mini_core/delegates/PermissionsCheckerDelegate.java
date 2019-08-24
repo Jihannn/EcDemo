@@ -15,6 +15,7 @@ import com.jihan.mini_core.callback.IGlobalCallBack;
 import com.jihan.mini_core.ui.camera.CameraImageBean;
 import com.jihan.mini_core.ui.camera.MiniCamera;
 import com.jihan.mini_core.ui.camera.RequestCodes;
+import com.jihan.mini_core.ui.scanner.ScannerDelegate;
 import com.yalantis.ucrop.UCrop;
 
 import permissions.dispatcher.NeedsPermission;
@@ -38,6 +39,15 @@ public abstract class PermissionsCheckerDelegate extends BaseDelegate {
 
     public void startCameraWithCheck() {
         PermissionsCheckerDelegatePermissionsDispatcher.startCameraWithPermissionCheck(this);
+    }
+
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScanner(BaseDelegate delegate) {
+        delegate.getSupportDelegate().startForResult(new ScannerDelegate(),RequestCodes.SCAN);
+    }
+
+    public void startScannerWithCheck(BaseDelegate delegate){
+        PermissionsCheckerDelegatePermissionsDispatcher.startScannerWithPermissionCheck(this,delegate);
     }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)

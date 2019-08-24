@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.jihan.mini_core.app.Mini;
+import com.jihan.mini_core.callback.CallBackManager;
+import com.jihan.mini_core.callback.CallBackType;
+import com.jihan.mini_core.callback.IGlobalCallBack;
 import com.jihan.mini_core.delegates.bottom.BottomItemDelegate;
 import com.jihan.mini_core.net.RestCreator;
 import com.jihan.mini_core.net.rx.RxRestClient;
@@ -26,6 +29,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import java.util.WeakHashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,6 +55,17 @@ public class IndexFragment extends BottomItemDelegate {
     IconTextView mIconMsg;
     @BindView(R2.id.et_index_search)
     AppCompatEditText mEtSearch;
+
+    @OnClick(R2.id.icon_index_scan)
+    void onClickScan() {
+        CallBackManager.getInstance().setCallBack(CallBackType.SCANNER, new IGlobalCallBack<String>() {
+            @Override
+            public void execute(String args) {
+                Mini.showToast(args);
+            }
+        });
+        startScannerWithCheck(this.getParentDelegate());
+    }
 
     private SwipeRefreshHandler mSwipeRefreshHandler;
 
@@ -79,70 +94,6 @@ public class IndexFragment extends BottomItemDelegate {
         initRecycleView();
         initRefresh();
         mSwipeRefreshHandler.firstPage("data");
-//        testToRxClient();
-    }
-
-    //TODO test
-    private void testToRxClient() {
-        String url = "data";
-        RxRestClient.builder()
-                .url(url)
-                .build()
-                .get()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        Mini.showToast(s);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
-    //TODO test
-    private void testToRx() {
-        String url = "data";
-        WeakHashMap<String, Object> params = new WeakHashMap<>();
-        Observable<String> observable = RestCreator.RxRestServiceHolder.RX_REST_SERVICE.get(url, params);
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        Mini.showToast(s);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
     }
 
     @Override

@@ -5,5 +5,6 @@ package com.jihan.mini_core.callback;
  * @date 2019/8/23
  */
 public enum CallBackType {
-    ON_CROP
+    ON_CROP,
+    SCANNER
 }
