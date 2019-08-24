@@ -98,6 +98,7 @@ public class MultipleRecyclerAdapter
                     bannerImages = item.getField(MultipleFields.BANNERS);
                     ConvenientBanner<String> convenientBanner = holder.getView(R.id.banner_recycler_item);
                     BannerCreator.setDefault(convenientBanner, bannerImages, this);
+                    isInitBanner = true;
                 }
                 break;
             }

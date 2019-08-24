@@ -23,6 +23,7 @@ import com.jihan.mini_core.ui.refresh.PagingBean;
 import com.jihan.mini_core.ui.refresh.SwipeRefreshHandler;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
+import com.jihan.moni_ec.main.index.search.SearchFragment;
 import com.joanzapata.iconify.widget.IconTextView;
 
 
@@ -94,6 +95,7 @@ public class IndexFragment extends BottomItemDelegate {
         initRecycleView();
         initRefresh();
         mSwipeRefreshHandler.firstPage("data");
+        mSwipeRefreshHandler.loadMorePage("data_more");
     }
 
     @Override
@@ -104,5 +106,13 @@ public class IndexFragment extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         mSwipeRefreshHandler = SwipeRefreshHandler.create(mSwipeRefresh, new PagingBean(), mRecycleView, new IndexDataConvert());
+        mEtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    getParentDelegate().getSupportDelegate().start(new SearchFragment());
+                }
+            }
+        });
     }
 }

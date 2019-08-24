@@ -11,5 +11,4 @@ public class ItemType {
     public static final int ITEM_AVATAR = 30;
 
     public static final int ORDER_ITEM = 40;
-
 }
