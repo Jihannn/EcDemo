@@ -19,6 +19,7 @@ public class IndexDataConvert extends DataConverter {
     @Override
     public ArrayList<MultipleItemEntity> convert() {
         final JSONArray dataArray = JSONObject.parseObject(getJsonData()).getJSONArray("data");
+        final ArrayList<MultipleItemEntity> entitys = new ArrayList<>();
         final int size = dataArray.size();
 
         for (int i = 0; i < size; i++) {
@@ -53,9 +54,9 @@ public class IndexDataConvert extends DataConverter {
                     .setField(MultipleFields.IMAGE_URL, imageUrl)
                     .setField(MultipleFields.BANNERS, bannerImage)
                     .build();
-            ENTITYS.add(itemEntity);
+            entitys.add(itemEntity);
         }
 
-        return ENTITYS;
+        return entitys;
     }
 }

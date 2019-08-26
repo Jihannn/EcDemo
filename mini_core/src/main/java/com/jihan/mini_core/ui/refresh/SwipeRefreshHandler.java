@@ -11,7 +11,10 @@ import com.jihan.mini_core.net.RestClient;
 import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.mini_core.ui.recycler.DataConverter;
+import com.jihan.mini_core.ui.recycler.MultipleItemEntity;
 import com.jihan.mini_core.ui.recycler.MultipleRecyclerAdapter;
+
+import java.util.ArrayList;
 
 /**
  * @author Jihan
