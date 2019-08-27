@@ -40,9 +40,19 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
     }
 
     @Override
+    public void onSignInFailure() {
+        Mini.showToast("登陆失败，请检查下账号信息!");
+    }
+
+    @Override
     public void onSignUpSuccess() {
         Mini.showToast("注冊成功！");
         getSupportDelegate().replaceFragment(new SignInFragment(),false);
+    }
+
+    @Override
+    public void onSignUpFailure() {
+        Mini.showToast("账号已被注册！");
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
+import com.jihan.moni_ec.database.UserProfile;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,51 +38,40 @@ public class SignUpFragment extends MiniDelegate {
     TextInputEditText mEtRePassWord;
 
     private ISignListener mListener;
+    private String mAccount = null;
+    private String mPassWord = null;
 
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
-            RestClient.builder()
-                    .url("http://192.168.0.103:8080/sign_in")
-                    .loader(getContext())
-                    .success(new ISuccess() {
-                        @Override
-                        public void success(String response) {
-                            SignHandler.onSignUp(response,mListener);
-                        }
-                    })
-                    .failure(new IFailure() {
-                        @Override
-                        public void failure(String msg) {
-                            Mini.showToast(msg);
-                        }
-                    })
-                    .build()
-                    .get();
+            UserProfile user = new UserProfile();
+            user.setAccount(mAccount);
+            user.setPassWord(mPassWord);
+            SignHandler.onSignUp(user, mListener);
         }
     }
 
     @OnClick(R2.id.tv_link_sign_in)
     void toSignIn() {
-        getSupportDelegate().replaceFragment(new SignInFragment(),false);
+        getSupportDelegate().replaceFragment(new SignInFragment(), false);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity instanceof ProxyActivity){
+        if (activity instanceof ProxyActivity) {
             mListener = (ISignListener) activity;
         }
     }
 
     private boolean checkForm() {
-        final String userName = mEtName.getText().toString();
+        final String account = mEtName.getText().toString();
         final String email = mEtEmail.getText().toString();
         final String phone = mEtPhone.getText().toString();
         final String passWord = mEtPassWord.getText().toString();
         final String rePassWord = mEtRePassWord.getText().toString();
 
-        if (TextUtils.isEmpty(userName) ||
+        if (TextUtils.isEmpty(account) ||
                 TextUtils.isEmpty(email) ||
                 TextUtils.isEmpty(phone) ||
                 TextUtils.isEmpty(passWord) ||
@@ -94,6 +84,9 @@ public class SignUpFragment extends MiniDelegate {
             Mini.showToast("两次密码不相同");
             return false;
         }
+
+        mAccount = account;
+        mPassWord = passWord;
 
         return true;
     }

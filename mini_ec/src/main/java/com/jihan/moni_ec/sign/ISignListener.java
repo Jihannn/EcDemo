@@ -8,5 +8,9 @@ public interface ISignListener {
 
     void onSignInSuccess();
 
+    void onSignInFailure();
+
     void onSignUpSuccess();
+
+    void onSignUpFailure();
 }

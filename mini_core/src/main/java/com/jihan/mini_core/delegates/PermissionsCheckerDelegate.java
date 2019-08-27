@@ -16,6 +16,7 @@ import com.jihan.mini_core.ui.camera.CameraImageBean;
 import com.jihan.mini_core.ui.camera.MiniCamera;
 import com.jihan.mini_core.ui.camera.RequestCodes;
 import com.jihan.mini_core.ui.scanner.ScannerDelegate;
+import com.jihan.mini_core.util.MiniLogger;
 import com.yalantis.ucrop.UCrop;
 
 import permissions.dispatcher.NeedsPermission;

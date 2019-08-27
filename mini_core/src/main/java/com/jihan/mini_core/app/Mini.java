@@ -5,6 +5,8 @@ import android.os.Handler;
 
 import com.blankj.utilcode.util.Utils;
 import com.jihan.mini_core.util.T;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -21,6 +23,8 @@ public final class Mini {
         T.init(context.getApplicationContext());
         //Utils初始化
         Utils.init(context.getApplicationContext());
+        //Logger初始化
+        Logger.addLogAdapter(new AndroidLogAdapter());
         return Configurator.getInstance();
     }
 

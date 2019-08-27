@@ -4,9 +4,8 @@ import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.jihan.mini_core.app.Mini;
-import com.jihan.mini_core.net.interceptor.AddCookieInterceptor;
-import com.jihan.myecdemo.event.TestEvent;
 import com.jihan.moni_ec.database.DatabaseManager;
+import com.jihan.myecdemo.event.TestEvent;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 /**

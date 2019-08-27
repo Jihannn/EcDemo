@@ -17,6 +17,7 @@ import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
+import com.jihan.moni_ec.database.UserProfile;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,27 +35,16 @@ public class SignInFragment extends MiniDelegate {
     TextInputEditText mEtPassWord;
 
     private ISignListener mListener;
+    private String mAccount;
+    private String mPassWord;
 
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn(){
         if(checkForm()){
-            RestClient.builder()
-                    .url("http://192.168.0.103:8080/sign_up")
-                    .loader(getContext())
-                    .success(new ISuccess() {
-                        @Override
-                        public void success(String response) {
-                            SignHandler.onSignIn(response,mListener);
-                        }
-                    })
-                    .failure(new IFailure() {
-                        @Override
-                        public void failure(String msg) {
-                            Mini.showToast(msg);
-                        }
-                    })
-                    .build()
-                    .get();
+            UserProfile user = new UserProfile();
+            user.setAccount(mAccount);
+            user.setPassWord(mPassWord);
+            SignHandler.onSignIn(user,mListener);
         }
     }
 
@@ -65,7 +55,7 @@ public class SignInFragment extends MiniDelegate {
 
     @OnClick(R2.id.icon_sign_in_wechat)
     void toWechat(){
-        //TODO 微信登陆
+        Mini.showToast("微信登录");
     }
 
     @Override
@@ -77,14 +67,16 @@ public class SignInFragment extends MiniDelegate {
     }
 
     private boolean checkForm(){
-        final String email = mEtEmail.getText().toString();
+        final String account = mEtEmail.getText().toString();
         final String passWord = mEtPassWord.getText().toString();
 
-        if(TextUtils.isEmpty(email) || TextUtils.isEmpty(passWord)){
+        if(TextUtils.isEmpty(account) || TextUtils.isEmpty(passWord)){
             Mini.showToast("输入信息不能为空");
             return false;
         }
 
+        mAccount = account;
+        mPassWord = passWord;
         return true;
     }
 

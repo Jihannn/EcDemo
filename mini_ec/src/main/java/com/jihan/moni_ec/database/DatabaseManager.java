@@ -1,41 +1,40 @@
 package com.jihan.moni_ec.database;
 
 import android.content.Context;
-
-import org.greenrobot.greendao.database.Database;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
  * @author Jihan
- * @date 2019/8/13
+ * @date 2019/8/27
  */
 public class DatabaseManager {
 
-    private DaoSession mDaoSession;
-    private UserProfileDao mUserDao;
+    private DaoSession mDaoSession = null;
 
-    private DatabaseManager(){}
+    private DatabaseManager() {
+    }
 
-    public DatabaseManager init(Context context){
+    private static final class Holder {
+        private static final DatabaseManager INSTANCE = new DatabaseManager();
+    }
+
+    public static DatabaseManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    public DatabaseManager init(Context context) {
         initDao(context);
         return this;
     }
 
-    public UserProfileDao getDao(){
-        return mUserDao;
+    private void initDao(Context context) {
+        final DaoMaster.OpenHelper helper = new DaoMaster.DevOpenHelper(context, "ec_demo.db");
+        final SQLiteDatabase db = helper.getWritableDatabase();
+        final DaoMaster daoMaster = new DaoMaster(db);
+        mDaoSession = daoMaster.newSession();
     }
 
-    public static DatabaseManager getInstance(){
-        return Holder.DATABASE_MANAGER;
-    }
-
-    private static final class Holder {
-        private static final DatabaseManager DATABASE_MANAGER = new DatabaseManager();
-    }
-
-    private void initDao(Context context){
-        ReleaseOpenHelper openHelper = new ReleaseOpenHelper(context,"mini_ec.db");
-        Database db = openHelper.getWritableDb();
-        mDaoSession = new DaoMaster(db).newSession();
-        mUserDao = mDaoSession.getUserProfileDao();
+    public UserProfileDao getUserDao(){
+        return mDaoSession.getUserProfileDao();
     }
 }
