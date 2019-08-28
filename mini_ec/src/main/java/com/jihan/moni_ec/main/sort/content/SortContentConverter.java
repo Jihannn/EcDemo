@@ -23,7 +23,7 @@ public class SortContentConverter {
             final int id = data.getInteger("id");
             final String title = data.getString("section");
 
-            final SectionBean sectionTitleBean = new SectionBean(true, title);;
+            final SectionBean sectionTitleBean = new SectionBean(true, title);
             sectionTitleBean.setId(id);
             sectionTitleBean.setIsMore(true);
             dataList.add(sectionTitleBean);

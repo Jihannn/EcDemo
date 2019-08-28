@@ -16,5 +16,6 @@ public enum MultipleFields {
     TITLE,
     TIME,
     THUMB,
-    PRICE
+    PRICE,
+    AUTHOR,
 }

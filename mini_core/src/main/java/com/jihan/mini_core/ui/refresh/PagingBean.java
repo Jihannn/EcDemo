@@ -6,19 +6,32 @@ package com.jihan.mini_core.ui.refresh;
  */
 public final class PagingBean {
 
-    private int pageIndex = 0;
+    //当前页数
+    private int curPage = 0;
+    //总共页数
+    private int pageCount = 0;
+    //信息总数
     private int total = 0;
-    private int pageSize = 0;
-    private int currentCount = 0;
+    //已显示信息数目
+    private int size = 0;
+    //是否到底
+    private boolean over = false;
     private int delayed = 0;
 
-
-    public int getPageIndex() {
-        return pageIndex;
+    public boolean isOver() {
+        return over;
     }
 
-    public PagingBean setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
+    public void setOver(boolean over) {
+        this.over = over;
+    }
+
+    public int getCurPage() {
+        return curPage;
+    }
+
+    public PagingBean setCurPage(int curPage) {
+        this.curPage = curPage;
         return this;
     }
 
@@ -31,21 +44,21 @@ public final class PagingBean {
         return this;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    public PagingBean setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public PagingBean setPageCount(int pageCount) {
+        this.pageCount = pageCount;
         return this;
     }
 
-    public int getCurrentCount() {
-        return currentCount;
+    public int getSize() {
+        return size;
     }
 
-    public PagingBean setCurrentCount(int currentCount) {
-        this.currentCount = currentCount;
+    public PagingBean setSize(int size) {
+        this.size = size;
         return this;
     }
 
@@ -58,8 +71,8 @@ public final class PagingBean {
         return this;
     }
 
-    public PagingBean addIndex(){
-        ++pageIndex;
+    public PagingBean addIndex() {
+        ++curPage;
         return this;
     }
 }

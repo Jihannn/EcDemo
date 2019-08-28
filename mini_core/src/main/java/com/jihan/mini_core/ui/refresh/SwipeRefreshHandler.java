@@ -8,19 +8,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.net.RestClient;
+import com.jihan.mini_core.net.callback.IError;
 import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.mini_core.ui.recycler.DataConverter;
-import com.jihan.mini_core.ui.recycler.MultipleItemEntity;
 import com.jihan.mini_core.ui.recycler.MultipleRecyclerAdapter;
-
-import java.util.ArrayList;
 
 /**
  * @author Jihan
  * @date 2019/8/17
  */
-public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
+        BaseQuickAdapter.RequestLoadMoreListener {
 
     private final SwipeRefreshLayout SWIPE_REFRESH;
     private final PagingBean PAGING_BEAN;
@@ -63,6 +62,7 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
         refresh();
     }
 
+
     public void firstPage(String url) {
         PAGING_BEAN.setDelayed(1000);
         RestClient.builder()
@@ -72,17 +72,25 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                     public void success(String response) {
                         JSONObject jsonObject = JSON.parseObject(response);
                         PAGING_BEAN.setTotal(jsonObject.getInteger("total"))
-                                .setPageSize(jsonObject.getInteger("page_size"))
-                                .setPageIndex(1);
-                        mRecyclerAdapter = MultipleRecyclerAdapter.create(CONVERTER.setJsonData(response));
+                                .setPageCount(jsonObject.getInteger("pageCount"))
+                                .setSize(jsonObject.getInteger("size"))
+                                .setCurPage(1);
+                        mRecyclerAdapter = MultipleRecyclerAdapter.add(CONVERTER.setJsonData(response));
                         mRecyclerAdapter.setOnLoadMoreListener(SwipeRefreshHandler.this, RECYCLER_VIEW);
                         RECYCLER_VIEW.setAdapter(mRecyclerAdapter);
                         PAGING_BEAN.addIndex();
                     }
                 })
+                .error(new IError() {
+                    @Override
+                    public void error(int code, String msg) {
+                        Mini.showToast("code :" + code + "\nmsg :" + msg);
+                    }
+                })
                 .build()
                 .get();
     }
+
 
     public void loadMorePage(String url) {
         this.loadMoreUrl = url;
@@ -93,12 +101,12 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
             mRecyclerAdapter.loadMoreFail();
             return;
         }
-        final int pageSize = PAGING_BEAN.getPageSize();
-        final int index = PAGING_BEAN.getPageIndex();
-        final int currentCount = PAGING_BEAN.getCurrentCount();
+        final int pageSize = PAGING_BEAN.getPageCount();
+        final int index = PAGING_BEAN.getCurPage();
+        final int currentCount = PAGING_BEAN.getSize();
         final int itemTotal = PAGING_BEAN.getTotal();
 
-        if(currentCount < itemTotal && index < pageSize){
+        if (currentCount < itemTotal && index < pageSize) {
             Mini.getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -108,7 +116,7 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                                 @Override
                                 public void success(String response) {
                                     PAGING_BEAN.addIndex();
-                                    PAGING_BEAN.setCurrentCount(mRecyclerAdapter.getData().size());
+                                    PAGING_BEAN.setSize(mRecyclerAdapter.getData().size());
                                     mRecyclerAdapter.addData(CONVERTER.setJsonData(response).convert());
                                     mRecyclerAdapter.loadMoreComplete();
                                 }
@@ -123,8 +131,8 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                             .build()
                             .get();
                 }
-            },1000);
-        }else{
+            }, 1000);
+        } else {
             mRecyclerAdapter.loadMoreEnd(true);
         }
     }
@@ -133,4 +141,5 @@ public class SwipeRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
     public void onLoadMoreRequested() {
         loadMore();
     }
+
 }

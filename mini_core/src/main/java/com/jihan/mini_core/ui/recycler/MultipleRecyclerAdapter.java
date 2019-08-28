@@ -28,6 +28,8 @@ public class MultipleRecyclerAdapter
 
     private boolean isInitBanner = false;
 
+    private static List<MultipleItemEntity> data = null;
+
     private static final RequestOptions RECYCLE_OPTIONS = new RequestOptions()
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -42,8 +44,13 @@ public class MultipleRecyclerAdapter
         return new MultipleRecyclerAdapter(data);
     }
 
-    public static MultipleRecyclerAdapter create(DataConverter converter) {
-        return new MultipleRecyclerAdapter(converter.convert());
+    public static void createBanner(DataConverter converter) {
+        data = converter.convert();
+    }
+
+    public static MultipleRecyclerAdapter add(DataConverter converter){
+        data.addAll(converter.convert());
+        return new MultipleRecyclerAdapter(data);
     }
 
     private void init() {

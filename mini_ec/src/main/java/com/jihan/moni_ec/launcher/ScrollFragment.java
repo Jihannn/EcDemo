@@ -30,11 +30,9 @@ public class ScrollFragment extends MiniDelegate implements OnItemClickListener 
     private ILauncherFinish mListener;
 
     private void initScroll() {
-        IMAGES.add(R.mipmap.launcher_01);
         IMAGES.add(R.mipmap.launcher_02);
         IMAGES.add(R.mipmap.launcher_03);
         IMAGES.add(R.mipmap.launcher_04);
-        IMAGES.add(R.mipmap.launcher_05);
         mBanner.setPages(new LauncherHolderCretor(),IMAGES)
                 .setPageIndicator(new int[]{R.drawable.dot_normal,R.drawable.dot_focus})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)

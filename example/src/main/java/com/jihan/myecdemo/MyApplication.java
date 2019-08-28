@@ -21,10 +21,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Mini.init(this)
-                .withApiHost("http://192.168.0.103:8080/")
+                .withApiHost("https://www.wanandroid.com/")
                 .withIcon(new FontAwesomeModule())
-                .withJavaScriptInterface("mini")
-                .withWebEvent("test",new TestEvent())
+//                .withJavaScriptInterface("mini")
+//                .withWebEvent("test",new TestEvent())
 //                .withWebHost("https://www.baidu.com/")
 //                .withInterceptor(new AddCookieInterceptor())
                 .finish();

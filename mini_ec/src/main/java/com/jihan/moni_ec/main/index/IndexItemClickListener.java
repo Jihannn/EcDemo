@@ -11,7 +11,7 @@ import com.jihan.moni_ec.details.GoodsDetailFragment;
  * @author Jihan
  * @date 2019/8/17
  */
-public class IndexItemClickListener extends SimpleClickListener {
+public class IndexItemClickListener{
 
     private final MiniDelegate DELEGATE;
 
@@ -21,25 +21,5 @@ public class IndexItemClickListener extends SimpleClickListener {
 
     public static IndexItemClickListener create(MiniDelegate delegate){
         return new IndexItemClickListener(delegate);
-    }
-
-    @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        DELEGATE.getSupportDelegate().start(new GoodsDetailFragment());
-    }
-
-    @Override
-    public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-
-    }
-
-    @Override
-    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-    }
-
-    @Override
-    public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
-
     }
 }
