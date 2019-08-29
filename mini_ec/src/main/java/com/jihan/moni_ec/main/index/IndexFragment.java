@@ -69,6 +69,7 @@ public class IndexFragment extends BottomItemDelegate {
         initRefresh();
         mIndexRefreshHandler.loadBanner(ApiConfigs.MAIN_BANNER);
         mIndexRefreshHandler.firstPage(ApiConfigs.MAIN_DATAS + "/0/json");
+        mIndexRefreshHandler.loadMore(ApiConfigs.MAIN_DATAS);
     }
 
     @Override

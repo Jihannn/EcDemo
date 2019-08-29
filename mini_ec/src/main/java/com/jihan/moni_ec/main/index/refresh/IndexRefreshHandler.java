@@ -1,7 +1,6 @@
 package com.jihan.moni_ec.main.index.refresh;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
@@ -28,6 +27,7 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
     private final PagingBean PAGING_BEAN;
     private final RecyclerView RECYCLER_VIEW;
     private IndexDataAdapter mRecyclerAdapter;
+    private boolean isLoadMore = true;
 
     private IndexRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
                                 PagingBean pagingBean,
@@ -61,7 +61,7 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
         }, 1000);
     }
 
-    public void loadBanner(String url){
+    public void loadBanner(String url) {
         RestClient.builder()
                 .url(url)
                 .success(new ISuccess() {
@@ -96,7 +96,6 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                         PAGING_BEAN.addIndex();
 
                         mRecyclerAdapter.addData(new IndexDataConvert().convert(response));
-//                        mRecyclerAdapter.setOnLoadMoreListener(SwipeRefreshHandler.this, RECYCLER_VIEW);
                         RECYCLER_VIEW.setAdapter(mRecyclerAdapter);
                     }
                 })
@@ -110,4 +109,45 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                 .get();
     }
 
+    public void loadMore(String url) {
+        RECYCLER_VIEW.addOnScrollListener(new ScrollStateListener() {
+            @Override
+            public void loadMore(int itemCount, int lastItem) {
+                final int pageCount = PAGING_BEAN.getPageCount();
+                final int curPage = PAGING_BEAN.getCurPage();
+                final int total = PAGING_BEAN.getTotal();
+                if (curPage <= pageCount && itemCount <= total) {
+                    RestClient.builder()
+                            .url(url + "/" + (curPage + 1) + "/json")
+                            .success(new ISuccess() {
+                                @Override
+                                public void success(String response) {
+                                    Mini.getHandler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mRecyclerAdapter.addData(new IndexDataConvert().convert(response));
+                                            mRecyclerAdapter.notifyItemChanged(lastItem);
+                                        }
+                                    },1000);
+                                }
+                            })
+                            .error(new IError() {
+                                @Override
+                                public void error(int code, String msg) {
+                                    Mini.showToast("code : " + code + "\nmsg : " + msg);
+                                }
+                            })
+                            .build()
+                            .get();
+                } else {
+                    Mini.showToast("没有内容可加载了");
+                    if(isLoadMore) {
+                        mRecyclerAdapter.setLoadMore(false);
+                        mRecyclerAdapter.notifyItemRemoved(lastItem);
+                        isLoadMore = false;
+                    }
+                }
+            }
+        });
+    }
 }
