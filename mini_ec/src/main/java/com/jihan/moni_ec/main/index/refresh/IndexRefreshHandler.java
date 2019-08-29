@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jihan.mini_core.app.Mini;
+import com.jihan.mini_core.delegates.MiniDelegate;
 import com.jihan.mini_core.net.RestClient;
 import com.jihan.mini_core.net.callback.IError;
 import com.jihan.mini_core.net.callback.ISuccess;
@@ -29,20 +30,22 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
     private IndexDataAdapter mRecyclerAdapter;
     private boolean isLoadMore = true;
 
-    private IndexRefreshHandler(SwipeRefreshLayout swipeRefreshLayout,
+    private IndexRefreshHandler(MiniDelegate delegate,
+                                SwipeRefreshLayout swipeRefreshLayout,
                                 PagingBean pagingBean,
                                 RecyclerView recyclerView) {
         this.SWIPE_REFRESH = swipeRefreshLayout;
         this.PAGING_BEAN = pagingBean;
         this.RECYCLER_VIEW = recyclerView;
         SWIPE_REFRESH.setOnRefreshListener(this);
-        mRecyclerAdapter = new IndexDataAdapter();
+        mRecyclerAdapter = new IndexDataAdapter(delegate);
     }
 
-    public static IndexRefreshHandler create(SwipeRefreshLayout swipeRefreshLayout,
+    public static IndexRefreshHandler create(MiniDelegate delegate,
+                                             SwipeRefreshLayout swipeRefreshLayout,
                                              PagingBean pagingBean,
                                              RecyclerView recyclerView) {
-        return new IndexRefreshHandler(swipeRefreshLayout, pagingBean, recyclerView);
+        return new IndexRefreshHandler(delegate,swipeRefreshLayout, pagingBean, recyclerView);
     }
 
     @Override

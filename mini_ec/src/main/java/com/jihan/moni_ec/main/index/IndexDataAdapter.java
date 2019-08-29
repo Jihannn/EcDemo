@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.jihan.mini_core.app.Mini;
+import com.jihan.mini_core.delegates.MiniDelegate;
+import com.jihan.mini_core.delegates.web.WebDelegateImpl;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.main.index.banner.BannerCreators;
 import com.jihan.moni_ec.main.index.data.DataEntity;
@@ -31,10 +33,15 @@ public class IndexDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private final ArrayList<DataEntity> DATAS = new ArrayList<>();
     private final ArrayList<DataEntity> BANNERS = new ArrayList<>();
+    private MiniDelegate DELEGATE = null;
 
     private int mBannerCount = 0;
     private boolean isBanner = false;
     private boolean isLoadMore = true;
+
+    public IndexDataAdapter(MiniDelegate delegate) {
+        this.DELEGATE = delegate;
+    }
 
     public void addData(ArrayList<DataEntity> data) {
         DATAS.addAll(data);
@@ -45,7 +52,7 @@ public class IndexDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mBannerCount += data.size();
     }
 
-    public void setLoadMore(boolean isFull){
+    public void setLoadMore(boolean isFull) {
         isLoadMore = isFull;
     }
 
@@ -95,7 +102,14 @@ public class IndexDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             final DataEntity data = DATAS.get(realPosition);
             final DataHolder holder = (DataHolder) viewHolder;
 //            holder.mIcAuthorIcon.setText();
-            holder.itemView.setOnClickListener(v -> Mini.showToast("点击了" + realPosition));
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (DELEGATE != null) {
+                        DELEGATE.getParentDelegate().getSupportDelegate().start(IndexWebDelegate.newIntent(data.getLink()));
+                    }
+                }
+            });
             holder.mIcHeart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

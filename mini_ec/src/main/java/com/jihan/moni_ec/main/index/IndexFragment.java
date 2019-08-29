@@ -79,7 +79,7 @@ public class IndexFragment extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-        mIndexRefreshHandler = IndexRefreshHandler.create(mSwipeRefresh, new PagingBean(), mRecycleView);
+        mIndexRefreshHandler = IndexRefreshHandler.create(this,mSwipeRefresh, new PagingBean(), mRecycleView);
 
         mEtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
