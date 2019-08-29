@@ -4,7 +4,10 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
+import com.jihan.mini_core.app.AccountManager;
 import com.jihan.mini_core.delegates.MiniDelegate;
+import com.jihan.moni_ec.interceptor.SaveCookiesInterceptor;
+import com.jihan.moni_ec.sign.SignInFragment;
 
 import retrofit2.http.DELETE;
 
@@ -23,9 +26,24 @@ public class PersonalItemClickListener extends SimpleClickListener {
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ListBean data = (ListBean) adapter.getData().get(position);
-        MiniDelegate delegate = data.getMiniDelegate();
-        if(delegate != null) {
-            DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
+
+        switch (data.getItemType()) {
+            case ItemType.ITEM_NORMAL: {
+                MiniDelegate delegate = data.getMiniDelegate();
+                if (delegate != null) {
+                    DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
+                }
+                break;
+            }
+            case ItemType.ITEM_LOGOUT: {
+                DELEGATE.getParentDelegate().getSupportDelegate().replaceFragment(new SignInFragment(),false);
+                AccountManager.setSignInState(false);
+                SaveCookiesInterceptor.clearCookie();
+                break;
+            }
+            default: {
+                break;
+            }
         }
     }
 

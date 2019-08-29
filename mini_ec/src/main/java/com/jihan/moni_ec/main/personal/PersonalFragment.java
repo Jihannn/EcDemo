@@ -28,10 +28,10 @@ public class PersonalFragment extends BottomItemDelegate {
     @BindView(R2.id.rv_personal_setting)
     RecyclerView mRecycleView = null;
 
-    @OnClick(R2.id.tv_all_order)
-    void onClickAllOrder() {
-        getParentDelegate().getSupportDelegate().start(OrderListFragment.newIntent("all"));
-    }
+//    @OnClick(R2.id.tv_all_order)
+//    void onClickAllOrder() {
+//        getParentDelegate().getSupportDelegate().start(OrderListFragment.newIntent("all"));
+//    }
 
     @OnClick(R2.id.img_user_avatar)
     void onClickUserProfile() {
@@ -64,11 +64,6 @@ public class PersonalFragment extends BottomItemDelegate {
     }
 
     private List<ListBean> createLowList() {
-        ListBean address = new ListBean.Builder()
-                .setItemType(ItemType.ITEM_NORMAL)
-                .setId(1)
-                .setText("收货地址")
-                .build();
 
         ListBean system = new ListBean.Builder()
                 .setItemType(ItemType.ITEM_NORMAL)
@@ -77,9 +72,16 @@ public class PersonalFragment extends BottomItemDelegate {
                 .setMiniDelegate(new SettingsFragment())
                 .build();
 
+        ListBean logout = new ListBean.Builder()
+                .setItemType(ItemType.ITEM_LOGOUT)
+                .setId(2)
+                .setText("注销")
+                .build();
+
+
         List<ListBean> list = new ArrayList<>();
-        list.add(address);
         list.add(system);
+        list.add(logout);
         return list;
     }
 }

@@ -26,12 +26,18 @@ public class PersonalAdapter extends BaseMultiItemQuickAdapter<ListBean, BaseVie
         super(data);
         addItemType(ItemType.ITEM_NORMAL, R.layout.arrow_item_layout);
         addItemType(ItemType.ITEM_AVATAR, R.layout.arrow_item_avatar);
+        addItemType(ItemType.ITEM_LOGOUT, R.layout.arrow_item_layout);
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder holder, ListBean item) {
         switch (holder.getItemViewType()) {
             case ItemType.ITEM_NORMAL: {
+                holder.setText(R.id.tv_arrow_text, item.getText());
+                holder.setText(R.id.tv_arrow_value, item.getValue());
+                break;
+            }
+            case ItemType.ITEM_LOGOUT: {
                 holder.setText(R.id.tv_arrow_text, item.getText());
                 holder.setText(R.id.tv_arrow_value, item.getValue());
                 break;

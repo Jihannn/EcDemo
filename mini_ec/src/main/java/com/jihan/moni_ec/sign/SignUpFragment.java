@@ -7,14 +7,18 @@ import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jihan.mini_core.activities.ProxyActivity;
 import com.jihan.mini_core.app.Mini;
 import com.jihan.mini_core.delegates.MiniDelegate;
 import com.jihan.mini_core.net.RestClient;
+import com.jihan.mini_core.net.callback.IError;
 import com.jihan.mini_core.net.callback.IFailure;
 import com.jihan.mini_core.net.callback.ISuccess;
 import com.jihan.moni_ec.R;
 import com.jihan.moni_ec.R2;
+import com.jihan.moni_ec.configs.ApiConfigs;
 import com.jihan.moni_ec.database.UserProfile;
 
 import butterknife.BindView;
@@ -26,12 +30,8 @@ import butterknife.OnClick;
  */
 public class SignUpFragment extends MiniDelegate {
 
-    @BindView(R2.id.edit_sign_up_name)
-    TextInputEditText mEtName;
-    @BindView(R2.id.edit_sign_up_email)
-    TextInputEditText mEtEmail;
-    @BindView(R2.id.edit_sign_up_phone)
-    TextInputEditText mEtPhone;
+    @BindView(R2.id.edit_sign_up_account)
+    TextInputEditText mEtAccount;
     @BindView(R2.id.edit_sign_up_password)
     TextInputEditText mEtPassWord;
     @BindView(R2.id.edit_sign_up_re_password)
@@ -40,14 +40,32 @@ public class SignUpFragment extends MiniDelegate {
     private ISignListener mListener;
     private String mAccount = null;
     private String mPassWord = null;
+    private String mRePassWord = null;
 
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
-            UserProfile user = new UserProfile();
-            user.setAccount(mAccount);
-            user.setPassWord(mPassWord);
-            SignHandler.onSignUp(user, mListener);
+            RestClient.builder()
+                    .url(ApiConfigs.REGISTER)
+                    .params("username", mAccount)
+                    .params("password", mPassWord)
+                    .params("repassword", mRePassWord)
+                    .success(new ISuccess() {
+                        @Override
+                        public void success(String response) {
+                            JSONObject data = JSONObject.parseObject(response);
+                            Integer errorCode = data.getInteger("errorCode");
+                            String errorMsg = data.getString("errorMsg");
+                            if (errorCode != 0) {
+                                Mini.showToast("code : " + errorCode + "\nmsg : " + errorMsg);
+                            } else {
+                                SignHandler.onSignUp(mListener);
+                            }
+                        }
+                    })
+                    .loader(getContext())
+                    .build()
+                    .post();
         }
     }
 
@@ -65,15 +83,11 @@ public class SignUpFragment extends MiniDelegate {
     }
 
     private boolean checkForm() {
-        final String account = mEtName.getText().toString();
-        final String email = mEtEmail.getText().toString();
-        final String phone = mEtPhone.getText().toString();
+        final String account = mEtAccount.getText().toString();
         final String passWord = mEtPassWord.getText().toString();
         final String rePassWord = mEtRePassWord.getText().toString();
 
         if (TextUtils.isEmpty(account) ||
-                TextUtils.isEmpty(email) ||
-                TextUtils.isEmpty(phone) ||
                 TextUtils.isEmpty(passWord) ||
                 TextUtils.isEmpty(rePassWord)) {
             Mini.showToast("输入信息不能为空");
@@ -87,6 +101,7 @@ public class SignUpFragment extends MiniDelegate {
 
         mAccount = account;
         mPassWord = passWord;
+        mRePassWord = rePassWord;
 
         return true;
     }

@@ -6,6 +6,8 @@ package com.jihan.moni_ec.main.personal;
  */
 public class ItemType {
 
+    public static final int ITEM_LOGOUT = 10;
+
     public static final int ITEM_NORMAL = 20;
 
     public static final int ITEM_AVATAR = 30;

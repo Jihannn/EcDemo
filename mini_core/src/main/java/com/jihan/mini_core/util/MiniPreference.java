@@ -1,5 +1,6 @@
 package com.jihan.mini_core.util;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -21,10 +22,18 @@ public final class MiniPreference {
      */
     private static final SharedPreferences PREFERENCES =
             PreferenceManager.getDefaultSharedPreferences(Mini.getApplicationContext());
+
+    private static final SharedPreferences COOKIES_PREFERENCES =
+            Mini.getApplicationContext().getSharedPreferences("Cookies", Context.MODE_PRIVATE);
+
     private static final String APP_PREFERENCES_KEY = "profile";
 
     private static SharedPreferences getAppPreference() {
         return PREFERENCES;
+    }
+
+    private static SharedPreferences getCookiesPreferences() {
+        return COOKIES_PREFERENCES;
     }
 
     public static void setAppProfile(String val) {
@@ -78,6 +87,25 @@ public final class MiniPreference {
 
     public static String getCustomAppProfile(String key) {
         return getAppPreference().getString(key, "");
+    }
+
+
+    public static void addCookies(String key, String val) {
+        getCookiesPreferences()
+                .edit()
+                .putString(key, val)
+                .apply();
+    }
+
+    public static String getCookies(String key) {
+        return getCookiesPreferences().getString(key, "");
+    }
+
+    public static void clearCookies() {
+        getCookiesPreferences()
+                .edit()
+                .clear()
+                .apply();
     }
 
 }

@@ -4,7 +4,10 @@ import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.jihan.mini_core.app.Mini;
+import com.jihan.mini_core.net.interceptor.AddCookieInterceptor;
 import com.jihan.moni_ec.database.DatabaseManager;
+import com.jihan.moni_ec.interceptor.AddCookiesInterceptor;
+import com.jihan.moni_ec.interceptor.SaveCookiesInterceptor;
 import com.jihan.myecdemo.event.TestEvent;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
@@ -26,7 +29,8 @@ public class MyApplication extends Application {
 //                .withJavaScriptInterface("mini")
 //                .withWebEvent("test",new TestEvent())
 //                .withWebHost("https://www.baidu.com/")
-//                .withInterceptor(new AddCookieInterceptor())
+                .withInterceptor(new SaveCookiesInterceptor())
+                .withInterceptor(new AddCookiesInterceptor())
                 .finish();
 
         DatabaseManager.getInstance().init(this);

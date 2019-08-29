@@ -75,7 +75,7 @@ public class IndexDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof BannerHolder && !isBanner) {
-            Mini.showToast("banner : " + position);
+//            Mini.showToast("banner : " + position);
             ConvenientBanner convenientBanner = ((BannerHolder) viewHolder).convenientBanner;
             final ArrayList<String> bannersImages = new ArrayList<>();
             for (int i = 0; i < BANNERS.size(); i++) {
