@@ -1,2 +1,2 @@
-# EcDemo
-Android Electronic Commerce Demo
+# Learning Demo
+Android Learning Demo
