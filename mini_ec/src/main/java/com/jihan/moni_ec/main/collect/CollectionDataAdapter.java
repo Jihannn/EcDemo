@@ -74,6 +74,7 @@ public class CollectionDataAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             final DataEntity data = DATAS.get(position);
             final DataHolder holder = (DataHolder) viewHolder;
             final int id = DATAS.get(position).getId();
+            final int originId = DATAS.get(position).getOriginId();
             final boolean[] isCollect = {true};
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,7 +108,8 @@ public class CollectionDataAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 .post();
                     } else {
                         RestClient.builder()
-                                .url(ApiConfigs.UN_COLLECTION + id + "/json")
+                                .url(ApiConfigs.UN_COLLECTION_LIST + id + "/json")
+                                .params("originId",originId)
                                 .success(new ISuccess() {
                                     @Override
                                     public void success(String response) {

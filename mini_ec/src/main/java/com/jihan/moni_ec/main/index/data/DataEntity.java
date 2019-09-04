@@ -28,6 +28,16 @@ public class DataEntity{
     //收藏
     private int id;
     private boolean collect;
+    private int originId;
+
+    public int getOriginId() {
+        return originId;
+    }
+
+    public DataEntity setOriginId(int originId) {
+        this.originId = originId;
+        return this;
+    }
 
     public boolean isCollect() {
         return collect;

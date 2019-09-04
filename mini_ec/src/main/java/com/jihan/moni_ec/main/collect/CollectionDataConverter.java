@@ -22,7 +22,6 @@ public class CollectionDataConverter {
 
         for (int i = 0; i < size; i++) {
             final JSONObject data = jsonArray.getJSONObject(i);
-
             final String author = data.getString("author");
             final String title = data.getString("title");
             final int chapterId = data.getInteger("chapterId");
@@ -30,6 +29,7 @@ public class CollectionDataConverter {
             final String link = data.getString("link");
             final String niceDate = data.getString("niceDate");
             final int id = data.getInteger("id");
+            final int originId = data.getInteger("originId");
             final DataEntity item = new DataEntity();
 
             item.setBannerOrArticle(DataEntity.ARTICLE)
@@ -39,7 +39,8 @@ public class CollectionDataConverter {
                     .setChapterName(chapterName)
                     .setLink(link)
                     .setNiceDate(niceDate)
-                    .setId(id);
+                    .setId(id)
+                    .setOriginId(originId);
 
             ENTITY.add(item);
         }

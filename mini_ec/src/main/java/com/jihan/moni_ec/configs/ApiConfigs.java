@@ -19,4 +19,6 @@ public class ApiConfigs {
     public static final String UN_COLLECTION = "lg/uncollect_originId/";
     // lg/collect/list/0/json
     public static final String COLLECTION_LIST = "lg/collect/list/";
+    // lg/uncollect/2805/json
+    public static final String UN_COLLECTION_LIST = "lg/uncollect/";
 }
