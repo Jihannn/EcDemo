@@ -2,9 +2,13 @@ package com.jihan.moni_ec.launcher;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jihan.mini_core.app.AccountManager;
@@ -57,6 +61,7 @@ public class SplashFragment extends MiniDelegate implements ITimer {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         initTimer();
     }
+
 
     @Override
     public void onAttach(Activity activity) {

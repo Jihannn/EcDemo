@@ -45,6 +45,7 @@ public class SortMenuRecyclerAdapter extends MultipleRecyclerAdapter {
                 final View line = holder.getView(R.id.view_line);
                 final View itemView = holder.itemView;
                 name.setText(text);
+
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -62,6 +63,7 @@ public class SortMenuRecyclerAdapter extends MultipleRecyclerAdapter {
                         }
                     }
                 });
+
                 if(!isClicked){
                     line.setVisibility(View.INVISIBLE);
                     name.setTextColor(ContextCompat.getColor(mContext,R.color.we_chat_black));
