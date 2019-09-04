@@ -53,7 +53,7 @@ public class RestCreator {
                 .baseUrl(BASE_URL)
                 .client(OkHttpClientHolder.OK_HTTP_CLIENT)
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 

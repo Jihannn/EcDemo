@@ -25,6 +25,27 @@ public class DataEntity{
     private String chapterName;
     private String link;
     private String niceDate;
+    //收藏
+    private int id;
+    private boolean collect;
+
+    public boolean isCollect() {
+        return collect;
+    }
+
+    public DataEntity setCollect(boolean collect) {
+        this.collect = collect;
+        return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public DataEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public String getBannerOrArticle() {
         return bannerOrArticle;

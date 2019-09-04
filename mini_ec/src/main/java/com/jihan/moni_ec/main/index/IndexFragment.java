@@ -109,4 +109,5 @@ public class IndexFragment extends BottomItemDelegate {
         mRecycleView.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.index_divider), 5));
 //        mRecycleView.addOnItemTouchListener(IndexItemClickListener.create(getParentDelegate()));
     }
+
 }

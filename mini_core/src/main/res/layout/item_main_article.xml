@@ -52,7 +52,7 @@
             android:id="@+id/tv_parent_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="parent | "
+            android:text=""
             android:textSize="25sp" />
 
         <TextView

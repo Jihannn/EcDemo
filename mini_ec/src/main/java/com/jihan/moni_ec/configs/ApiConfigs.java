@@ -13,4 +13,10 @@ public class ApiConfigs {
     public static final String MAIN_BANNER = "banner/json";
     // article/list/0/json
     public static final String MAIN_DATAS = "article/list";
+    // 'lg/collect/'+ id +'/json'
+    public static final String COLLECTION = "lg/collect/";
+    // lg/uncollect_originId/2333/json
+    public static final String UN_COLLECTION = "lg/uncollect_originId/";
+    // lg/collect/list/0/json
+    public static final String COLLECTION_LIST = "lg/collect/list/";
 }

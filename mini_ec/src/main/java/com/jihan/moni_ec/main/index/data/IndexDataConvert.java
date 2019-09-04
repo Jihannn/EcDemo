@@ -33,6 +33,8 @@ public class IndexDataConvert {
             final String chapterName = data.getString("chapterName");
             final String link = data.getString("link");
             final String niceDate = data.getString("niceDate");
+            final int id = data.getInteger("id");
+            final boolean collect = data.getBoolean("collect");
             final DataEntity item = new DataEntity();
 
             item.setBannerOrArticle(DataEntity.ARTICLE)
@@ -43,7 +45,9 @@ public class IndexDataConvert {
                     .setChapterId(chapterId)
                     .setChapterName(chapterName)
                     .setLink(link)
-                    .setNiceDate(niceDate);
+                    .setNiceDate(niceDate)
+                    .setId(id)
+                    .setCollect(collect);
 
             entitys.add(item);
         }

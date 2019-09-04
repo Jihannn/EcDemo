@@ -16,6 +16,9 @@ import com.jihan.moni_ec.main.index.banner.BannerDataConvert;
 import com.jihan.moni_ec.main.index.data.DataEntity;
 import com.jihan.moni_ec.main.index.data.IndexDataConvert;
 
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -25,17 +28,21 @@ import java.util.ArrayList;
 public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener {
 
     private final SwipeRefreshLayout SWIPE_REFRESH;
-    private final PagingBean PAGING_BEAN;
     private final RecyclerView RECYCLER_VIEW;
+    private PagingBean mPageBean;
     private IndexDataAdapter mRecyclerAdapter;
     private boolean isLoadMore = true;
+
+    private String mBannerUrl = null;
+    private String mFirstUrl = null;
+    private boolean isReCreate = false;
 
     private IndexRefreshHandler(MiniDelegate delegate,
                                 SwipeRefreshLayout swipeRefreshLayout,
                                 PagingBean pagingBean,
                                 RecyclerView recyclerView) {
         this.SWIPE_REFRESH = swipeRefreshLayout;
-        this.PAGING_BEAN = pagingBean;
+        this.mPageBean = pagingBean;
         this.RECYCLER_VIEW = recyclerView;
         SWIPE_REFRESH.setOnRefreshListener(this);
         mRecyclerAdapter = new IndexDataAdapter(delegate);
@@ -45,31 +52,27 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                                              SwipeRefreshLayout swipeRefreshLayout,
                                              PagingBean pagingBean,
                                              RecyclerView recyclerView) {
-        return new IndexRefreshHandler(delegate,swipeRefreshLayout, pagingBean, recyclerView);
+        return new IndexRefreshHandler(delegate, swipeRefreshLayout, pagingBean, recyclerView);
     }
 
     @Override
     public void onRefresh() {
-        refresh();
-    }
-
-    private void refresh() {
         SWIPE_REFRESH.setRefreshing(true);
-        Mini.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //TODO 下拉刷新网络请求
-                SWIPE_REFRESH.setRefreshing(false);
-            }
-        }, 1000);
+        isReCreate = true;
+        loadBanner(mBannerUrl);
+        firstPage(mFirstUrl);
     }
 
     public void loadBanner(String url) {
+        mBannerUrl = url;
         RestClient.builder()
                 .url(url)
                 .success(new ISuccess() {
                     @Override
                     public void success(String response) {
+                        if(isReCreate){
+                            mRecyclerAdapter.clearBanner();
+                        }
                         ArrayList<DataEntity> data = new BannerDataConvert().convert(response);
                         mRecyclerAdapter.addBannerData(data);
                     }
@@ -85,18 +88,25 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
     }
 
     public void firstPage(String url) {
-        PAGING_BEAN.setDelayed(1000);
+        mFirstUrl = url;
+        mPageBean.setDelayed(1000);
         RestClient.builder()
                 .url(url)
                 .success(new ISuccess() {
                     @Override
                     public void success(String response) {
+                        if(isReCreate){
+                            mPageBean = new PagingBean();
+                            mRecyclerAdapter.clearData();
+                            isReCreate = false;
+                            SWIPE_REFRESH.setRefreshing(false);
+                        }
                         JSONObject jsonObject = JSON.parseObject(response).getJSONObject("data");
-                        PAGING_BEAN.setTotal(jsonObject.getInteger("total"))
+                        mPageBean.setTotal(jsonObject.getInteger("total"))
                                 .setPageCount(jsonObject.getInteger("pageCount"))
                                 .setSize(jsonObject.getInteger("size"))
                                 .setCurPage(1);
-                        PAGING_BEAN.addIndex();
+                        mPageBean.addIndex();
 
                         mRecyclerAdapter.addData(new IndexDataConvert().convert(response));
                         RECYCLER_VIEW.setAdapter(mRecyclerAdapter);
@@ -116,9 +126,9 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
         RECYCLER_VIEW.addOnScrollListener(new ScrollStateListener() {
             @Override
             public void loadMore(int itemCount, int lastItem) {
-                final int pageCount = PAGING_BEAN.getPageCount();
-                final int curPage = PAGING_BEAN.getCurPage();
-                final int total = PAGING_BEAN.getTotal();
+                final int pageCount = mPageBean.getPageCount();
+                final int curPage = mPageBean.getCurPage();
+                final int total = mPageBean.getTotal();
                 if (curPage <= pageCount && itemCount <= total) {
                     RestClient.builder()
                             .url(url + "/" + (curPage + 1) + "/json")
@@ -131,7 +141,7 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                                             mRecyclerAdapter.addData(new IndexDataConvert().convert(response));
                                             mRecyclerAdapter.notifyItemChanged(lastItem);
                                         }
-                                    },1000);
+                                    }, 1000);
                                 }
                             })
                             .error(new IError() {
@@ -144,7 +154,7 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
                             .get();
                 } else {
                     Mini.showToast("没有内容可加载了");
-                    if(isLoadMore) {
+                    if (isLoadMore) {
                         mRecyclerAdapter.setLoadMore(false);
                         mRecyclerAdapter.notifyItemRemoved(lastItem);
                         isLoadMore = false;
@@ -153,4 +163,6 @@ public class IndexRefreshHandler implements SwipeRefreshLayout.OnRefreshListener
             }
         });
     }
+
+
 }
