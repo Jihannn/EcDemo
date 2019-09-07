@@ -40,6 +40,12 @@ public class CollectionRefreshHandler{
                 .success(new ISuccess() {
                     @Override
                     public void success(String response) {
+                        JSONObject responseObject = JSON.parseObject(response);
+                        Integer errorCode = responseObject.getInteger("errorCode");
+                        if(errorCode == -1001){
+                            Mini.showToast("Cookies过期，请重新登录。");
+                            return;
+                        }
                         JSONObject jsonObject = JSON.parseObject(response).getJSONObject("data");
                         PAGING_BEAN.setTotal(jsonObject.getInteger("total"))
                                 .setPageCount(jsonObject.getInteger("pageCount"))
